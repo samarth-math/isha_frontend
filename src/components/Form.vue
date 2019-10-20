@@ -1,5 +1,9 @@
 <template>
   <div>
+    <div>
+      Response:
+      {{response}}
+    </div>
     <b-form
       @submit="onSubmit"
       @reset="onReset"
@@ -64,6 +68,7 @@ import { HTTP } from "../common/http"
 export default {
   data() {
     return {
+      response: {},
       form: {
         email: '',
         fname: '',
@@ -77,9 +82,8 @@ export default {
   methods: {
     onSubmit(evt) {
       evt.preventDefault()
-      console.log(evt)
       HTTP.post('/user', this.form).then(response => {
-        console.log(response)
+        this.response = response.data
       }).catch(error => {
         console.log(error)
       })
