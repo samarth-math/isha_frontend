@@ -10,20 +10,6 @@
       v-if="show"
     >
       <b-form-group
-        label="Email address:"
-        label-for="email"
-        description="We'll never share your email with anyone else."
-      >
-        <b-form-input
-          id="email"
-          v-model="form.email"
-          type="email"
-          required
-          placeholder="Enter email"
-        ></b-form-input>
-      </b-form-group>
-
-      <b-form-group
         label="Your First Name:"
         label-for="fname"
       >
@@ -36,7 +22,7 @@
       </b-form-group>
 
       <b-form-group
-        label="Your First Name:"
+        label="Your Last Name:"
         label-for="lname"
       >
         <b-form-input
@@ -45,8 +31,21 @@
           required
           placeholder="Enter last name"
         >
-
         </b-form-input>
+      </b-form-group>
+
+      <b-form-group
+        label="Email address:"
+        label-for="email"
+        description="We'll never share your email with anyone else."
+      >
+        <b-form-input
+          id="email"
+          v-model="form.email"
+          type="email"
+          required
+          placeholder="Enter email"
+        ></b-form-input>
       </b-form-group>
 
       <b-button
@@ -70,9 +69,9 @@ export default {
     return {
       response: {},
       form: {
-        email: '',
-        fname: '',
-        lname: ''
+        email: 'abc@def.com',
+        fname: 'Sam',
+        lname: 'Math'
       },
       show: true
     }
@@ -82,8 +81,9 @@ export default {
   methods: {
     onSubmit(evt) {
       evt.preventDefault()
-      HTTP.post('/user', this.form).then(response => {
+      HTTP.post('/pguser', this.form).then(response => {
         this.response = response.data
+        this.$router.push({ name: 'FetchedUsers', params: { meditators: this.response } })
       }).catch(error => {
         console.log(error)
       })
