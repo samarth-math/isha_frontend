@@ -49,7 +49,7 @@ export default {
   methods: {
     onSubmit(evt) {
       evt.preventDefault()
-      console.log(this.picked)
+      this.$router.push({ name: 'EditableUser', params: { meditator: this.picked } })
     },
   },
   props: {
