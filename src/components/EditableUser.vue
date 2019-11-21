@@ -43,6 +43,8 @@
 </template>
 
 <script>
+import { HTTP } from "../common/http"
+
 export default {
   name: 'EditableUser',
   data() {
@@ -50,13 +52,19 @@ export default {
       picked: '',
       visitInfo: {
         checkin_date: new Date(new Date().toString().split('GMT')[0] + ' UTC').toISOString().split('.')[0],
-        checkout_date: ''
+        checkout_date: '',
+        visitor: this.meditator.sfid
       }
     }
   },
   methods: {
     onSubmit(evt) {
-      evt.preventDefault()
+      evt.preventDefault(),
+        HTTP.post('/createNew', { 'visitInfo': this.visitInfo }).then(response => {
+          console.log(response.data)
+        }).catch(error => {
+          console.log(error)
+        })
     },
   },
   props: {
