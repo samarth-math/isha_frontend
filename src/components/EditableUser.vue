@@ -31,7 +31,7 @@
         disabled="disabled"
         v-model="visitInfo.checkin_date"
       ></b-form-input>
-      Current Visit Checkout Date : <b-form-input v-model="visitInfo.checkout_date"></b-form-input>
+      Current Visit Checkout Date : <datepicker v-model="visitInfo.checkout_date"></datepicker>
 
       <b-button
         type="submit"
@@ -44,9 +44,13 @@
 
 <script>
 import { HTTP } from "../common/http"
+import Datepicker from 'vuejs-datepicker'
 
 export default {
   name: 'EditableUser',
+  components: {
+    Datepicker
+  },
   data() {
     return {
       picked: '',
