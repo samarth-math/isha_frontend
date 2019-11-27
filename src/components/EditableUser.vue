@@ -38,7 +38,6 @@
         variant="primary"
       >Submit</b-button>
     </b-form>
-    {{picked}}
   </div>
 </template>
 
@@ -53,12 +52,11 @@ export default {
   },
   data() {
     return {
-      picked: '',
       visitInfo: {
         checkin_date: new Date(new Date().toString().split('GMT')[0] + ' UTC').toISOString().split('.')[0],
         checkout_date: '',
         visitor: this.meditator.sfid
-      }
+      },
     }
   },
   methods: {
@@ -66,6 +64,8 @@ export default {
       evt.preventDefault(),
         HTTP.post('/createNew', { 'visitInfo': this.visitInfo }).then(response => {
           console.log(response.data)
+          this.visitInfo.ashramVisitUid = response.data
+          this.$router.push({ name: 'SignWaiver', params: { meditator: this.meditator, visitInfo: this.visitInfo } })
         }).catch(error => {
           console.log(error)
         })
